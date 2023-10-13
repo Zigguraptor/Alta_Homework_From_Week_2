@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<IShiftDbContext, ShiftDbContext>(optionsBuilder =>
 {
-    optionsBuilder.UseSqlite(builder.Configuration.GetConnectionString("ShiftDb"));
+    optionsBuilder.UseSqlite(builder.Configuration.GetConnectionString("EmployeesShiftDb"));
 });
 
 builder.Services.AddEndpointsApiExplorer();
