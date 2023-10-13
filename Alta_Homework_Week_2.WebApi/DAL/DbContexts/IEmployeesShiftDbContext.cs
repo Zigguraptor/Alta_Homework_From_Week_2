@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Alta_Homework_Week_2.WebApi.DAL.DbContexts
 {
-    public interface IShiftDbContext
+    public interface IEmployeesShiftDbContext
     {
         DbSet<JobTitle> JobTitles { get; set; }
         DbSet<Employee> Employees { get; set; }

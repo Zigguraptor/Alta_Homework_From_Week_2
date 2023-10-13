@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<IShiftDbContext, ShiftDbContext>(optionsBuilder =>
+builder.Services.AddDbContext<IEmployeesShiftDbContext, EmployeesEmployeesShiftDbContext>(optionsBuilder =>
 {
     optionsBuilder.UseSqlite(builder.Configuration.GetConnectionString("EmployeesShiftDb"));
 });
