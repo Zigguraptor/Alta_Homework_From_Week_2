@@ -1,17 +1,13 @@
-using Alta_Homework_Week_2.WebApi.DAL.DbContexts;
+using Alta_Homework_Week_2.WebApi;
 using Alta_Homework_Week_2.WebApi.Middleware;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<IEmployeesShiftDbContext, EmployeesEmployeesShiftDbContext>(optionsBuilder =>
-{
-    optionsBuilder.UseSqlite(builder.Configuration.GetConnectionString("EmployeesShiftDb"));
-});
-
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContexts(builder.Configuration);
 
 var app = builder.Build();
 
