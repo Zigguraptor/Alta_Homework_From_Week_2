@@ -3,11 +3,12 @@ using Alta_Homework_Week_2.WebApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddAutoMappingProfiles();
+builder.Services.AddDbContexts(builder.Configuration);
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.AddDbContexts(builder.Configuration);
 
 var app = builder.Build();
 
