@@ -2,7 +2,7 @@
 
 namespace Alta_Homework_Week_2.WebApi.DAL.Entities
 {
-    public class ShiftRecord
+    public class ShiftRecordEntity
     {
         [Key] public int Id { get; set; }
         [Required] public DateTime StartTime { get; set; }

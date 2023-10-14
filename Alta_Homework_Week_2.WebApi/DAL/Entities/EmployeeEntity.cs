@@ -12,6 +12,6 @@ namespace Alta_Homework_Week_2.WebApi.DAL.Entities
         [Required] public required string JobTitle { get; set; }
 
         [ForeignKey("JobTitle")] public JobTitleEntity Job { get; set; } = null!;
-        public IEnumerable<ShiftRecord> ShiftRecord { get; set; } = null!;
+        public IEnumerable<ShiftRecordEntity> ShiftRecord { get; set; } = null!;
     }
 }
