@@ -7,14 +7,17 @@ namespace Alta_Homework_Week_2.WebApi.DTOs
 {
     public class CreateEmployeeDto : IMappingSource
     {
+        [MinLength(1, ErrorMessage = $"Поле должно содержать хотя бы один символ")]
         [Required(AllowEmptyStrings = false, ErrorMessage = $"Поле {nameof(Name)} должно быть заполнено")]
         public required string Name { get; set; }
 
+        [MinLength(1, ErrorMessage = $"Поле должно содержать хотя бы один символ")]
         [Required(AllowEmptyStrings = false, ErrorMessage = $"Поле {nameof(Surname)} должно быть заполнено")]
         public required string Surname { get; set; }
 
-        [MinLength(1)]
-        [RegularExpression(@"\S", ErrorMessage = $"Поле {nameof(Patronymic)} не может состоять только из пробелов")]
+        [MinLength(1, ErrorMessage = $"Поле должно содержать хотя бы один символ")]
+        [RegularExpression(@"^(?!\s+$).+",
+            ErrorMessage = $"Поле {nameof(Patronymic)} не может состоять только из пробелов")]
         public string? Patronymic { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = $"Поле {nameof(JobTitle)} должно быть заполнено")]
