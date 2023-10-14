@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Alta_Homework_Week_2.WebApi.DAL.Entities
 {
-    public class Employee
+    public class EmployeeEntity
     {
         [Key] public int Id { get; set; }
         [Required] public required string Name { get; set; }
