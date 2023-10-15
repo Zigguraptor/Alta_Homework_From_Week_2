@@ -7,10 +7,14 @@ namespace Alta_Homework_Week_2.WebApi.Controllers;
 
 public class HrDepartmentJobsController : BaseController
 {
+    private readonly ILogger<HrDepartmentJobsController> _logger;
     private readonly IJobsRepository _jobsRepository;
 
-    public HrDepartmentJobsController(IJobsRepository jobsRepository) =>
+    public HrDepartmentJobsController(ILogger<HrDepartmentJobsController> logger, IJobsRepository jobsRepository)
+    {
+        _logger = logger;
         _jobsRepository = jobsRepository;
+    }
 
     [HttpGet]
     public async Task<ActionResult<List<string>>> GetJobTitlesAsync() =>
@@ -26,6 +30,9 @@ public class HrDepartmentJobsController : BaseController
         try
         {
             await _jobsRepository.AddNewJobTitle(jobTitle);
+
+            _logger.LogInformation("Создана новая должность {jobTitle}. ip адрес создавшего {ip}",
+                jobTitle, HttpContext.Connection.RemoteIpAddress);
         }
         catch (Exception e)
         {
@@ -43,6 +50,9 @@ public class HrDepartmentJobsController : BaseController
         try
         {
             await _jobsRepository.DeleteJobTitleAsync(jobTitle);
+
+            _logger.LogInformation("Удалена должность {jobTitle}. ip адрес удалившего {ip}",
+                jobTitle, HttpContext.Connection.RemoteIpAddress);
         }
         catch (Exception e)
         {
