@@ -1,10 +1,13 @@
 using Alta_Homework_Week_2.WebApi;
+using Alta_Homework_Week_2.WebApi.Common.Services;
 using Alta_Homework_Week_2.WebApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddAutoMappingProfiles();
 builder.Services.AddDbContexts(builder.Configuration);
+
+builder.Services.AddSingleton<IDateTimeService, CommonDateTimeUtcService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
