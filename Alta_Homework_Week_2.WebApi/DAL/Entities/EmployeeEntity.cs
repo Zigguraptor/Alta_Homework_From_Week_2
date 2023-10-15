@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 
 namespace Alta_Homework_Week_2.WebApi.DAL.Entities
 {
@@ -9,9 +10,14 @@ namespace Alta_Homework_Week_2.WebApi.DAL.Entities
         [Required] public required string Name { get; set; }
         [Required] public required string Surname { get; set; }
         public string? Patronymic { get; set; }
-        [Required] public required string JobTitle { get; set; }
 
-        [ForeignKey("JobTitle")] public JobTitleEntity Job { get; set; } = null!;
+        public required string JobTitle { get; set; }
+
+        [Required]
+        [ForeignKey("JobTitle")]
+        [DeleteBehavior(DeleteBehavior.NoAction)]
+        public JobTitleEntity Job { get; set; } = null!;
+
         public IEnumerable<ShiftRecordEntity> ShiftRecord { get; set; } = null!;
     }
 }
