@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Alta_Homework_Week_2.WebApi.DAL.Entities
 {
+    [Index(nameof(EndTime))]
+    [Index(nameof(EmployeeId))]
     public class ShiftRecordEntity
     {
         [Key] public int Id { get; set; }
