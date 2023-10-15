@@ -35,7 +35,8 @@ try
     var app = builder.Build();
 
     app.UseMiddleware<ErrorHandlerMiddleware>();
-
+    app.UseMiddleware<IpLoggingMiddleware>();
+    
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
