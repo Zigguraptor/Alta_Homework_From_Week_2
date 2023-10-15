@@ -36,7 +36,9 @@ try
 
     app.UseMiddleware<ErrorHandlerMiddleware>();
     app.UseMiddleware<IpLoggingMiddleware>();
-    
+
+    app.AddLogFilesDirectoryBrowser();
+
     if (app.Environment.IsDevelopment())
     {
         app.UseSwagger();
