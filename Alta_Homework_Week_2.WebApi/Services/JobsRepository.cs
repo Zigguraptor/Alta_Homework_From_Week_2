@@ -29,7 +29,7 @@ public class JobsRepository : IJobsRepository
     {
         var localJobTitle = await _employeesShiftDbContext.JobTitles.FindAsync(jobTitle);
         if (localJobTitle == null)
-            throw new KeyNotFoundException();
+            throw new RecordNotFoundException();
 
         _employeesShiftDbContext.JobTitles.Remove(localJobTitle);
         await _employeesShiftDbContext.SaveChangesAsync();

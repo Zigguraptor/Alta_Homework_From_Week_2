@@ -1,6 +1,7 @@
 ﻿using Alta_Homework_Week_2.WebApi.DAL.DbContexts;
 using Alta_Homework_Week_2.WebApi.DAL.Entities;
 using Alta_Homework_Week_2.WebApi.DTOs;
+using Alta_Homework_Week_2.WebApi.Exceptions;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,7 +29,7 @@ public class EmployeesRepository : IEmployeesRepository
     {
         var employee = await _employeesShiftDbContext.Employees.FindAsync(id);
         if (employee == null)
-            throw new KeyNotFoundException();
+            throw new EmployeeNotFoundException();
 
         return _mapper.Map<EmployeeVm>(employee);
     }
@@ -46,7 +47,7 @@ public class EmployeesRepository : IEmployeesRepository
     {
         var employee = await _employeesShiftDbContext.Employees.FindAsync(id);
         if (employee == null)
-            throw new KeyNotFoundException();
+            throw new EmployeeNotFoundException();
 
         _employeesShiftDbContext.Employees.Remove(employee);
 
