@@ -9,5 +9,6 @@ namespace Alta_Homework_Week_2.WebApi.DAL.DbContexts
         DbSet<EmployeeEntity> Employees { get; set; }
         DbSet<ShiftRecordEntity> ShiftRecords { get; set; }
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+        public void Init();
     }
 }
