@@ -19,6 +19,9 @@ namespace Alta_Homework_Week_2.WebApi.Controllers
             _employeesRepository = employeesRepository;
         }
 
+        /// <summary>
+        /// Возвращает список всех сотрудников 
+        /// </summary>
         [HttpGet]
         public async Task<ActionResult<List<EmployeeVm>>> EmployeesAsync()
         {
@@ -30,6 +33,10 @@ namespace Alta_Homework_Week_2.WebApi.Controllers
             return Ok(employees);
         }
 
+        /// <summary>
+        /// Возвращает информацию о сотруднике
+        /// </summary>
+        /// <param name="id">Id пропуска сотрудника</param>
         [HttpGet("{id:int}")]
         public async Task<ActionResult<EmployeeVm>> EmployeesAsync(int id)
         {
@@ -50,6 +57,9 @@ namespace Alta_Homework_Week_2.WebApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Добавляет данные о новом сотруднике
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> AddNewEmployeeAsync([FromBody] CreateEmployeeDto createEmployeeDto)
         {
@@ -73,6 +83,9 @@ namespace Alta_Homework_Week_2.WebApi.Controllers
             }
         }
 
+        /// <summary>
+        ///  обновляет данные о сотруднике
+        /// </summary>
         [HttpPut]
         public async Task<IActionResult> UpdateEmployee([FromBody] UpdateEmployeeDto updateEmployeeDto)
         {
@@ -84,6 +97,10 @@ namespace Alta_Homework_Week_2.WebApi.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Удаляет данные о сотруднике
+        /// </summary>
+        /// <param name="id">Id пропуска сотрудника</param>
         [HttpDelete]
         public async Task<IActionResult> DeleteEmployee([FromQuery] int id)
         {

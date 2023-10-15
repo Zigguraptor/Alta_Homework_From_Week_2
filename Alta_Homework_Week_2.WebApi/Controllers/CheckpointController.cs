@@ -16,6 +16,10 @@ namespace Alta_Homework_Week_2.WebApi.Controllers
             _shiftsRepository = shiftsRepository;
         }
 
+        /// <summary>
+        /// Начинает смену сотрудника по id его пропуска
+        /// </summary>
+        /// <param name="employeeId">Id пропуска сотрудника</param>
         [HttpPost]
         public async Task<IActionResult> StartShiftAsync([FromQuery] int employeeId)
         {
@@ -42,6 +46,11 @@ namespace Alta_Homework_Week_2.WebApi.Controllers
             }
         }
 
+        /// <summary>
+        /// Завершает смену сотрудника по id его пропуска
+        /// </summary>
+        /// <param name="employeeId">Id пропуска сотрудника</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<IActionResult> EndShiftAsync([FromQuery] int employeeId)
         {
