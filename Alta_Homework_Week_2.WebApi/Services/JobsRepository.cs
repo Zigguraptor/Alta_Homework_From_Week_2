@@ -25,7 +25,7 @@ public class JobsRepository : IJobsRepository
         await _employeesShiftDbContext.SaveChangesAsync();
     }
 
-    public async Task DeleteJobAsync(string jobTitle)
+    public async Task DeleteJobTitleAsync(string jobTitle)
     {
         var localJobTitle = await _employeesShiftDbContext.JobTitles.FindAsync(jobTitle);
         if (localJobTitle == null)
