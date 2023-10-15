@@ -17,7 +17,7 @@ public class IpLoggingMiddleware
     {
         _logger.LogInformation("Запрос с {host}. Url: {url}",
             context.Connection.RemoteIpAddress, context.Request.GetDisplayUrl());
-        
+
         await _next(context);
     }
 }
