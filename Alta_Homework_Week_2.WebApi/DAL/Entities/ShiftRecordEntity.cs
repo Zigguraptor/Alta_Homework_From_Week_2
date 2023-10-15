@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Alta_Homework_Week_2.WebApi.DAL.Entities
 {
@@ -7,6 +8,7 @@ namespace Alta_Homework_Week_2.WebApi.DAL.Entities
         [Key] public int Id { get; set; }
         [Required] public DateTime StartTime { get; set; }
         public DateTime? EndTime { get; set; }
-        [Required] public required EmployeeEntity EmployeeEntity { get; set; }
+        public int EmployeeId { get; set; }
+        [Required] [ForeignKey("EmployeeId")] public EmployeeEntity EmployeeEntity { get; set; } = null!;
     }
 }
