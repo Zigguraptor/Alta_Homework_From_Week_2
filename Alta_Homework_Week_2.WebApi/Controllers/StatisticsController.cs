@@ -10,6 +10,10 @@ public class StatisticsController : BaseController
     public StatisticsController(IShiftsRepository shiftsRepository) =>
         _shiftsRepository = shiftsRepository;
 
+    /// <summary>
+    /// Возвращает все записи смен
+    /// </summary>
+    /// <param name="employeeId">Id пропуска сотрудника</param>
     [HttpGet]
     public async Task<IActionResult> GetShiftsAsync([FromQuery] int? employeeId)
     {
@@ -18,6 +22,10 @@ public class StatisticsController : BaseController
             : Ok(await _shiftsRepository.GetShiftsAsync());
     }
 
+    /// <summary>
+    /// Возвращает текущие смены
+    /// </summary>
+    /// <param name="employeeId">Id пропуска сотрудника</param>
     [HttpGet]
     public async Task<IActionResult> ShiftsCurrentAsync([FromQuery] int? employeeId)
     {

@@ -16,10 +16,17 @@ public class HrDepartmentJobsController : BaseController
         _jobsRepository = jobsRepository;
     }
 
+    /// <summary>
+    /// Возвращает список всех должностей
+    /// </summary>
     [HttpGet]
     public async Task<ActionResult<List<string>>> GetJobTitlesAsync() =>
         Ok(await _jobsRepository.GetJobTitles());
 
+    /// <summary>
+    /// Создаёт новую должность
+    /// </summary>
+    /// <param name="jobTitle">Должность</param>
     [HttpPost]
     public async Task<IActionResult> AddNewJobAsync(
         [FromQuery] [Required] [MinLength(1, ErrorMessage = "Должен содержать хотя бы один символ")]
@@ -44,6 +51,11 @@ public class HrDepartmentJobsController : BaseController
         return Ok();
     }
 
+    /// <summary>
+    /// Удаляет существующую должность
+    /// </summary>
+    /// <param name="jobTitle">Должность</param>
+    /// <returns></returns>
     [HttpDelete]
     public async Task<IActionResult> DeleteJobTitleAsync([FromQuery] [Required] string jobTitle)
     {
