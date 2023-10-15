@@ -46,6 +46,12 @@ try
 
     app.MapControllers();
 
+    app.MapGet("/", context =>
+    {
+        context.Response.Redirect("/swagger");
+        return Task.CompletedTask;
+    });
+
     app.Run();
 }
 catch (Exception exception)
