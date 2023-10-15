@@ -33,6 +33,9 @@ try
     builder.Services.AddSwaggerGen();
 
     var app = builder.Build();
+    
+// init SQLite DBs
+    app.InitSqliteDbs();
 
     app.UseMiddleware<ErrorHandlerMiddleware>();
     app.UseMiddleware<IpLoggingMiddleware>();
