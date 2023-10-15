@@ -9,23 +9,38 @@ namespace Alta_Homework_Week_2.WebApi.Controllers
 {
     public class HrDepartmentEmployeesController : BaseController
     {
+        private readonly ILogger<HrDepartmentEmployeesController> _logger;
         private readonly IEmployeesRepository _employeesRepository;
 
-        public HrDepartmentEmployeesController(IEmployeesRepository employeesRepository) =>
+        public HrDepartmentEmployeesController(ILogger<HrDepartmentEmployeesController> logger,
+            IEmployeesRepository employeesRepository)
+        {
+            _logger = logger;
             _employeesRepository = employeesRepository;
-
-        #region Employees
+        }
 
         [HttpGet]
-        public async Task<ActionResult<List<EmployeeVm>>> EmployeesAsync() =>
-            Ok(await _employeesRepository.GetEmployees());
+        public async Task<ActionResult<List<EmployeeVm>>> EmployeesAsync()
+        {
+            var employees = await _employeesRepository.GetEmployees();
+
+            _logger.LogInformation("Запрошены данные всех сотрудников. ip адрес запросившего {ip}",
+                HttpContext.Connection.RemoteIpAddress);
+
+            return Ok(employees);
+        }
 
         [HttpGet("{id:int}")]
         public async Task<ActionResult<EmployeeVm>> EmployeesAsync(int id)
         {
             try
             {
-                return Ok(await _employeesRepository.GetEmployee(id));
+                var employee = await _employeesRepository.GetEmployee(id);
+
+                _logger.LogInformation("Запрошены данные сотрудника с id {id}. ip адрес запросившего {ip}",
+                    id, HttpContext.Connection.RemoteIpAddress);
+
+                return Ok(employee);
             }
             catch (Exception e)
             {
@@ -44,6 +59,11 @@ namespace Alta_Homework_Week_2.WebApi.Controllers
             try
             {
                 await _employeesRepository.AddNewEmployee(createEmployeeDto);
+
+                _logger.LogInformation("Добавлен новый сотрудник. ip адрес добавившего {ip}",
+                    HttpContext.Connection.RemoteIpAddress);
+
+                return Ok();
             }
             catch (Exception e)
             {
@@ -51,14 +71,16 @@ namespace Alta_Homework_Week_2.WebApi.Controllers
                     return BadRequest("Некорректные данные");
                 throw;
             }
-
-            return Ok();
         }
 
         [HttpPut]
         public async Task<IActionResult> UpdateEmployee([FromBody] UpdateEmployeeDto updateEmployeeDto)
         {
             await _employeesRepository.UpdateEmployee(updateEmployeeDto);
+
+            _logger.LogInformation("Данные сотрудника с id {id} обновлены. ip адрес обновившего {ip}",
+                updateEmployeeDto.Id, HttpContext.Connection.RemoteIpAddress);
+
             return Ok();
         }
 
@@ -68,6 +90,11 @@ namespace Alta_Homework_Week_2.WebApi.Controllers
             try
             {
                 await _employeesRepository.DeleteEmployee(id);
+
+                _logger.LogInformation("Сотрудник с id {id} удалён. ip адрес удалившего {ip}",
+                    id, HttpContext.Connection.RemoteIpAddress);
+
+                return Ok();
             }
             catch (Exception e)
             {
@@ -75,10 +102,6 @@ namespace Alta_Homework_Week_2.WebApi.Controllers
                     return BadRequest("Такой id не существует");
                 throw;
             }
-
-            return Ok();
         }
-
-        #endregion
     }
 }
