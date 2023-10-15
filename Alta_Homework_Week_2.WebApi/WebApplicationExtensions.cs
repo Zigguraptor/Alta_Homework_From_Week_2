@@ -6,10 +6,13 @@ public static class WebApplicationExtensions
 {
     public static WebApplication AddLogFilesDirectoryBrowser(this WebApplication app)
     {
+        var logsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs");
+        Directory.CreateDirectory(logsPath);
+
         app.UseDirectoryBrowser(new DirectoryBrowserOptions
         {
             FileProvider =
-                new PhysicalFileProvider(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "logs")),
+                new PhysicalFileProvider(logsPath),
             RequestPath = "/logs"
         });
 
