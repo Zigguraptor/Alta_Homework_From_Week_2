@@ -1,7 +1,9 @@
+using System.Reflection;
 using Alta_Homework_Week_2.WebApi;
 using Alta_Homework_Week_2.WebApi.Common.Services;
 using Alta_Homework_Week_2.WebApi.Middleware;
 using Alta_Homework_Week_2.WebApi.Services;
+using Microsoft.OpenApi.Models;
 using NLog;
 using NLog.Web;
 
@@ -30,10 +32,20 @@ try
 // other
     builder.Services.AddControllers();
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    builder.Services.AddSwaggerGen(options =>
+    {
+        options.SwaggerDoc("v1", new OpenApiInfo
+        {
+            Title = "API контроля рабочих смен",
+            Version = "v1"
+        });
+
+        var xmlPath = Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
+        options.IncludeXmlComments(xmlPath);
+    });
 
     var app = builder.Build();
-    
+
 // init SQLite DBs
     app.InitSqliteDbs();
 
