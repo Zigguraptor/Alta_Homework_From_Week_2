@@ -25,7 +25,7 @@ public class ErrorHandlerMiddleware
 
     private async Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
-        _logger.LogError(exception.ToString());
+        _logger.LogError("Произошло неожиданное исключение\n{ex}", exception.ToString());
         context.Response.Clear();
         context.Response.StatusCode = 500;
         context.Response.ContentType = "text/plain";
