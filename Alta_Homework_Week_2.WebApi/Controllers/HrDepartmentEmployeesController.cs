@@ -115,9 +115,15 @@ namespace Alta_Homework_Week_2.WebApi.Controllers
             }
             catch (Exception e)
             {
-                if (e is EmployeeNotFoundException)
-                    return BadRequest("Такой id не существует");
-                throw;
+                switch (e)
+                {
+                    case EmployeeNotFoundException:
+                        return BadRequest("Такой id не существует");
+                    case DbUpdateException:
+                        return BadRequest("Не удалось удалить сотрудника. Так как в базе есть данные о его сменах.");
+                    default:
+                        throw;
+                }
             }
         }
     }
