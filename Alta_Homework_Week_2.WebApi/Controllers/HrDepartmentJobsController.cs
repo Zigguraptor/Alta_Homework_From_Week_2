@@ -2,6 +2,7 @@
 using Alta_Homework_Week_2.WebApi.Common.Exceptions;
 using Alta_Homework_Week_2.WebApi.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Alta_Homework_Week_2.WebApi.Controllers;
 
@@ -40,6 +41,8 @@ public class HrDepartmentJobsController : BaseController
 
             _logger.LogInformation("Создана новая должность {jobTitle}. ip адрес создавшего {ip}",
                 jobTitle, HttpContext.Connection.RemoteIpAddress);
+
+            return Ok();
         }
         catch (Exception e)
         {
@@ -47,8 +50,6 @@ public class HrDepartmentJobsController : BaseController
                 return BadRequest("Такая должность уже существует");
             throw;
         }
-
-        return Ok();
     }
 
     /// <summary>
@@ -65,14 +66,21 @@ public class HrDepartmentJobsController : BaseController
 
             _logger.LogInformation("Удалена должность {jobTitle}. ip адрес удалившего {ip}",
                 jobTitle, HttpContext.Connection.RemoteIpAddress);
+
+            return Ok();
         }
         catch (Exception e)
         {
-            if (e is RecordNotFoundException)
-                return BadRequest("Такой должности не существует");
-            throw;
+            switch (e)
+            {
+                case RecordNotFoundException:
+                    return BadRequest("Такой должности не существует");
+                case DbUpdateException:
+                    return BadRequest(
+                        "Не удалось удалить должность. Скорее всего существуют сотрудники занимающие её.");
+                default:
+                    throw;
+            }
         }
-
-        return Ok();
     }
 }
